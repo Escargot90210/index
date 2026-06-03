@@ -2,162 +2,124 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
-  <title>SpotOn Portal – Verificatie</title>
+  <title>Beveiligingsverificatie – SpotOnMedics</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
     body {
-      font-family: "Segoe UI", system-ui, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background-color: #f2c94c;
       margin: 0;
       padding: 0;
     }
-
-    .wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      padding: 20px;
+    .page {
+      max-width: 480px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      overflow: hidden;
     }
-
-    .box {
-      width: 380px;
-      background: #ffffff;
-      border-radius: 14px;
-      padding: 40px 34px;
-      box-shadow: 0 12px 36px rgba(0,0,0,0.18);
+    .header {
+      background: #2563eb;
+      color: white;
+      padding: 16px 20px;
     }
-
-    .logo {
-      text-align: center;
-      margin-bottom: 26px;
-      font-size: 26px;
-      font-weight: 700;
-      color: #2563eb;
-      letter-spacing: -0.6px;
+    .header h1 {
+      margin: 0;
+      font-size: 18px;
     }
-
-    h2 {
-      margin: 0 0 14px;
-      font-size: 20px;
-      color: #111827;
-      text-align: center;
-      font-weight: 600;
-    }
-
-    p {
-      font-size: 14px;
-      color: #444;
-      line-height: 1.5;
-      margin-bottom: 14px;
-    }
-
-    .warning-box {
-      border-left: 4px solid #f97316;
-      background: #fff7ed;
-      padding: 10px 12px;
-      margin: 12px 0 16px;
+    .header p {
+      margin: 4px 0 0;
       font-size: 13px;
-      color: #7c2d12;
-      border-radius: 4px;
+      opacity: 0.9;
     }
-
+    .content {
+      padding: 20px;
+      font-size: 14px;
+      color: #111827;
+    }
+    .content p {
+      margin: 0 0 12px;
+      line-height: 1.5;
+    }
     .field {
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
-
     .field label {
       display: block;
       font-size: 13px;
       margin-bottom: 4px;
       color: #374151;
-      font-weight: 500;
     }
-
     .field input {
       width: 100%;
-      padding: 12px;
-      border-radius: 6px;
+      padding: 8px 10px;
+      border-radius: 4px;
       border: 1px solid #d1d5db;
       font-size: 14px;
       box-sizing: border-box;
-      transition: border-color 0.2s;
     }
-
-    .field input:focus {
-      border-color: #2563eb;
-      outline: none;
-    }
-
     .btn-primary {
       width: 100%;
-      padding: 12px;
-      border-radius: 6px;
+      padding: 9px 12px;
+      border-radius: 4px;
       border: none;
       background: #2563eb;
       color: white;
-      font-size: 15px;
-      font-weight: 600;
+      font-size: 14px;
+      font-weight: 500;
       cursor: pointer;
-      margin-top: 4px;
-      transition: background 0.2s;
     }
-
     .btn-primary:hover {
       background: #1d4ed8;
     }
-
-    .hint {
+    .footer {
+      padding: 12px 20px 16px;
+      border-top: 1px solid #e5e7eb;
+      background: #f9fafb;
       font-size: 11px;
-      color: #9ca3af;
-      margin-top: 6px;
-      text-align: center;
+      color: #6b7280;
+      line-height: 1.4;
     }
-
     .reveal {
-      margin-top: 22px;
-      padding: 16px;
-      border-radius: 8px;
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 6px;
       background: #ecfdf5;
       border: 1px solid #6ee7b7;
       color: #064e3b;
       font-size: 13px;
       display: none;
     }
-
-    .reveal h3 {
+    .reveal h2 {
       margin-top: 0;
-      font-size: 16px;
-      font-weight: 600;
+      font-size: 15px;
     }
-
     .reveal ul {
       padding-left: 18px;
       margin: 8px 0;
     }
-
-    .footer {
-      margin-top: 20px;
+    .reveal li {
+      margin-bottom: 4px;
+    }
+    .hint {
       font-size: 11px;
-      color: #6b7280;
-      text-align: center;
+      color: #9ca3af;
+      margin-top: 6px;
     }
   </style>
 
   <script>
-    // Trackingpixel → open-logging
+    // Trackingpixel: registreert pagina-openingen
     (function() {
       const img = new Image();
-      img.src = "https://script.google.com/macros/s/AKfycbzwTd-3NM4RUzkmtbWsuwMn9pxr-6Vguf85TlKZebtmdmDxinTKrB47U0SJ4ivR4-zfjg/exec?pixel=1&ts=" + Date.now();
+      img.src = "https://jouwserver.be/pixel?ts=" + Date.now();
     })();
 
     // Klik-logging
     function logClick(email) {
-      fetch("https://script.google.com/macros/s/AKfycbzwTd-3NM4RUzkmtbWsuwMn9pxr-6Vguf85TlKZebtmdmDxinTKrB47U0SJ4ivR4-zfjg/exec?email="
-            + encodeURIComponent(email)
-            + "&ua=" + encodeURIComponent(navigator.userAgent)
-            + "&ts=" + Date.now());
+      fetch("https://jouwserver.be/logclick?email=" + encodeURIComponent(email) + "&ts=" + Date.now());
     }
 
     function showReveal() {
@@ -168,54 +130,48 @@
 </head>
 <body>
 
-  <div class="wrapper">
-    <div class="box">
+  <div class="page">
+    <div class="header">
+      <h1>Beveiligingsverificatie vereist</h1>
+      <p>SpotOnMedics vraagt om uw 2-stapsverificatie opnieuw in te stellen.</p>
+    </div>
 
-      <div class="logo">SpotOn Portal</div>
+    <div class="content">
 
-      <h2>2‑stapsverificatie vereist</h2>
+      <p><strong>Wilt u uw 2-stapsverificatie opnieuw instellen?</strong></p>
 
-      <p><strong>Wilt u uw 2‑stapsverificatie opnieuw instellen?</strong></p>
-
-      <p>Om veiligheidsredenen moet uw 2‑stapsverificatie regelmatig opnieuw worden ingesteld.  
+      <p><strong>Let op:</strong> Om veiligheidsredenen moet uw 2-stapsverificatie regelmatig opnieuw worden ingesteld.  
       Houd uw mobiele telefoon bij de hand.</p>
 
-      <div class="warning-box">
-        Deze pagina is een <strong>interne beveiligingstest</strong>.  
-        Als dit een echte melding was, zou u nu uw SpotOnMedics‑gegevens doorgeven aan een aanvaller.
-      </div>
-
-      <p>Log in met:</p>
+      <p>U wordt gevraagd in te loggen met:</p>
       <ul>
-        <li>uw e‑mailadres</li>
-        <li>uw gekend SpotOnMedics‑wachtwoord</li>
+        <li>uw e-mailadres</li>
+        <li>uw gekend SpotOnMedics-wachtwoord</li>
       </ul>
+
+      <p>Daarna ontvangt u instructies om uw 2-stapsverificatie opnieuw in te stellen.</p>
 
       <form onsubmit="event.preventDefault(); logClick(document.getElementById('email').value); showReveal();">
         <div class="field">
-          <label>E‑mailadres</label>
+          <label>E-mailadres</label>
           <input id="email" type="email" placeholder="jouw.naam@organisatie.be" required>
         </div>
-
         <div class="field">
           <label>Wachtwoord</label>
           <input type="password" placeholder="••••••••••">
         </div>
-
         <button type="submit" class="btn-primary">Verifiëren</button>
-
         <div class="hint">(Geen zorgen: dit formulier verstuurt geen wachtwoorden.)</div>
       </form>
 
       <div id="reveal" class="reveal">
-        <h3>Dit was een phishingtest ✅</h3>
-
-        <p>Als dit echt was geweest, had u zojuist uw SpotOnMedics‑wachtwoord aan een aanvaller gegeven.</p>
+        <h2>Dit was een phishingtest ✅</h2>
+        <p>Als dit echt was geweest, had u zojuist uw SpotOnMedics-wachtwoord aan een aanvaller gegeven.</p>
 
         <p><strong>Rode vlaggen die u had kunnen zien:</strong></p>
         <ul>
-          <li>U werd onverwacht gevraagd uw 2‑stapsverificatie opnieuw in te stellen.</li>
-          <li>De pagina vroeg om SpotOnMedics‑inloggegevens buiten de officiële omgeving.</li>
+          <li>U werd onverwacht gevraagd uw 2-stapsverificatie opnieuw in te stellen.</li>
+          <li>De pagina vroeg om SpotOnMedics-inloggegevens buiten de officiële omgeving.</li>
           <li>Er werd druktaal gebruikt zoals “veiligheidsprobleem” en “verificatie vereist”.</li>
           <li>Er was geen duidelijke afzender of context.</li>
         </ul>
@@ -230,12 +186,11 @@
         <p>Groeten,<br>Ward</p>
       </div>
 
-      <div class="footer">
-        Deze pagina is uitsluitend bedoeld als interne bewustwordingsoefening rond phishing en digitale veiligheid.
-      </div>
+    </div>
 
+    <div class="footer">
+      Deze pagina is uitsluitend bedoeld als interne bewustwordingsoefening rond phishing en digitale veiligheid.
     </div>
   </div>
 
 </body>
-</html>
