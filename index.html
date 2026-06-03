@@ -1,23 +1,36 @@
-<script>
-  // Trackingpixel: registreert pagina-openeningen
-  (function() {
-    const img = new Image();
-    img.src = "https://script.google.com/macros/s/AKfycbzwTd-3NM4RUzkmtbWsuwMn9pxr-6Vguf85TlKZebtmdmDxinTKrB47U0SJ4ivR4-zfjg/exec?pixel=1&ts=" + Date.now();
-  })();
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loggingcode Testpagina</title>
 
-  // Klik-logging
-  function logClick(email) {
-    fetch(
-      "https://script.google.com/macros/s/AKfycbzwTd-3NM4RUzkmtbWsuwMn9pxr-6Vguf85TlKZebtmdmDxinTKrB47U0SJ4ivR4-zfjg/exec?email="
-      + encodeURIComponent(email)
-      + "&ua=" + encodeURIComponent(navigator.userAgent)
-      + "&ts=" + Date.now()
-    )
-    .then(() => console.log("Klik geregistreerd"))
-    .catch(err => console.error("Logging mislukt:", err));
-  }
+  <script>
+    function logClick(email) {
+      fetch("https://script.google.com/macros/s/AKfycbzwTd-3NM4RUzkmtbWsuwMn9pxr-6Vguf85TlKZebtmdmDxinTKrB47U0SJ4ivR4-zfjg/exec?email="
+            + encodeURIComponent(email)
+            + "&ua=" + encodeURIComponent(navigator.userAgent)
+            + "&ts=" + Date.now());
+    }
+  </script>
+</head>
 
-  function showReveal() {
-    document.getElementById("reveal").style.display = "block";
-  }
-</script>
+<body>
+  <h1>Testpagina voor loggingfunctie</h1>
+
+  <p>
+    Vul hieronder een e-mailadres in en klik op de knop om te testen of de logging correct werkt.
+    De ingevoerde gegevens worden doorgestuurd naar een gekoppelde testomgeving (Google Sheets via Apps Script).
+  </p>
+
+  <input type="email" id="emailInput" placeholder="Vul je e-mail in" />
+
+  <button onclick="logClick(document.getElementById('emailInput').value)">
+    Versturen
+  </button>
+
+  <p style="margin-top: 20px;">
+    Deze pagina dient uitsluitend als technische test voor het versturen van formulierdata.
+  </p>
+</body>
+</html>
