@@ -1,36 +1,156 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Loggingcode Testpagina</title>
+  <meta charset="UTF-8">
+  <title>Beveiligingstest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #f2c94c;
+      margin: 0;
+    }
+
+    .wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .box {
+      width: 420px;
+      background: white;
+      border-radius: 14px;
+      padding: 30px;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.18);
+    }
+
+    pre {
+      white-space: pre-line;
+      font-family: inherit;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .header-big {
+      font-size: 22px;
+      font-weight: 600;
+      color: #1e3a8a;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .reveal {
+      display: none;
+      margin-top: 18px;
+      padding: 16px;
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.5;
+      white-space: pre-line;
+    }
+  </style>
 
   <script>
+    const ENDPOINT = "https://script.google.com/macros/s/AKfycbzwTd-3NM4RUzkmtbWsuwMn9pxr-6Vguf85TlKZebtmdmDxinTKrB47U0SJ4ivR4-zfjg/exec";
+
     function logClick(email) {
-      fetch("https://script.google.com/macros/s/AKfycbzwTd-3NM4RUzkmtbWsuwMn9pxr-6Vguf85TlKZebtmdmDxinTKrB47U0SJ4ivR4-zfjg/exec?email="
-            + encodeURIComponent(email)
-            + "&ua=" + encodeURIComponent(navigator.userAgent)
-            + "&ts=" + Date.now());
+      fetch(
+        ENDPOINT +
+        "?email=" + encodeURIComponent(email) +
+        "&ua=" + encodeURIComponent(navigator.userAgent) +
+        "&ts=" + Date.now()
+      );
+    }
+
+    function submitForm(event) {
+      event.preventDefault();
+
+      const email = document.getElementById("email").value;
+
+      logClick(email);
+
+      document.getElementById("reveal").style.display = "block";
     }
   </script>
 </head>
 
 <body>
-  <h1>Testpagina voor loggingfunctie</h1>
 
-  <p>
-    Vul hieronder een e-mailadres in en klik op de knop om te testen of de logging correct werkt.
-    De ingevoerde gegevens worden doorgestuurd naar een gekoppelde testomgeving (Google Sheets via Apps Script).
-  </p>
+<div class="wrapper">
+  <div class="box">
 
-  <input type="email" id="emailInput" placeholder="Vul je e-mail in" />
+    <pre>
+<span class="header-big">SpotOnMedics Portaal</span>
+<span class="header-big">Verificatie vereist</span>
 
-  <button onclick="logClick(document.getElementById('emailInput').value)">
-    Versturen
-  </button>
+2 stapsverificatie opnieuw instellen.
 
-  <p style="margin-top: 20px;">
-    Deze pagina dient uitsluitend als technische test voor het versturen van formulierdata.
-  </p>
+Om veiligheidsredenen moet uw 2-stapsverificatie regelmatig opnieuw worden ingesteld. Houd uw mobiele telefoon bij de hand.
+
+U wordt gevraagd om in te loggen met:
+uw e-mailadres
+uw SpotOnMedics-wachtwoord
+
+Daarna ontvangt u instructies om uw 2-stapsverificatie opnieuw in te stellen.
+    </pre>
+
+    <form onsubmit="submitForm(event)">
+      <input id="email" type="email" placeholder="E-mailadres" required>
+      <input type="password" placeholder="Wachtwoord">
+      <button type="submit">Verifiëren</button>
+    </form>
+
+    <div id="reveal" class="reveal">
+Dit was een phishingtest ✅
+
+Als dit echt was geweest, had u zojuist uw SpotOnMedics-wachtwoord aan een aanvaller gegeven.
+
+Rode vlaggen die u had kunnen zien:
+
+U werd onverwacht gevraagd uw 2-stapsverificatie opnieuw in te stellen.
+De pagina vroeg om SpotOnMedics-inloggegevens buiten de officiële omgeving.
+Er werd druktaal gebruikt zoals “veiligheidsprobleem” en “verificatie vereist”.
+Er was geen duidelijke afzender (outlook account) of context.
+
+Ga nooit via een link uit een mail naar een loginpagina.
+Typ altijd zelf het adres van SpotOnMedics in.
+Bij twijfel: niet klikken, niet invullen, eerst overleggen.
+
+Groeten,
+
+Ward
+    </div>
+
+  </div>
+</div>
+
 </body>
 </html>
+
+
+
